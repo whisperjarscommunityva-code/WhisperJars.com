@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Whisper Jars Community</title>
+    <link rel="icon" type="image/png" href="https://media.base44.com/images/public/6a273affcf8c0ec45b5e0955/773394ac3_generated_image.png">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Caveat:wght@400;600;700&display=swap');
+
+:root {
+--hot-pink: #FF3CAC;
+--electric: #784BA0;
+--cyan: #2B86C5;
+--neon-yellow:#FFD600;
+--neon-green: #39FF14;
+--neon-orange:#FF6B00;
+--neon-blue: #00B4FF;
+--neon-purple:#B300FF;
+--coral: #FF4D6D;
+--lime: #CCFF00;
+--mint: #00E8C0;
+--peach: #FF9A3C;
+--cream: #2D1A3E;
+--glass: rgba(255,255,255,0.55);
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+font-family: 'Nunito', sans-serif;
+background: linear-gradient(145deg, #FFF0FA 0%, #EEF6FF 35%, #F0FFF8 65%, #FFFBEE 100%);
+color: var(--cream);
+overflow-x: hidden;
+min-height: 100vh;
+}
+
+/* NAV */
+nav {
+position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+display: flex; align-items: center; justify-content: space-between;
+padding: 0 2.5rem;
+background: rgba(255,255,255,0.82);
+backdrop-filter: blur(22px);
+border-bottom: 2.5px solid rgba(255,60,172,0.55);
+height: 64px;
+box-shadow: 0 2px 24px rgba(255,60,172,0.13), 0 1px 0 rgba(255,214,0,0.18);
+}
+.nav-logo {
+display: flex; align-items: center; gap: 0.6rem;
+font-family: 'Caveat', cursive; font-size: 1.5rem; font-weight: 700;
+color: var(--hot-pink); text-decoration: none; flex-shrink: 0;
+text-shadow: 0 0 12px rgba(255,60,172,0.35);
+}
+.nav-logo .jar-icon { font-size: 1.7rem; }
+
+.nav-tabs {
+display: flex; align-items: stretch; height: 100%;
+gap: 0; margin: 0 1rem;
+}
+.nav-tab {
+position: relative; display: flex; align-items: center; gap: 0.25rem;
+padding: 0 0.55rem; color: #7B5EA7; text-decoration: none;
+font-weight: 700; font-size: 0.72rem; letter-spacing: 0.02em;
+text-transform: uppercase; white-space: nowrap;
+transition: color 0.2s, background 0.2s;
+border-bottom: 3px solid transparent;
+}
+.nav-tab .tab-icon { font-size: 0.8rem; }
+.nav-tab:hover {
+color: var(--hot-pink);
+background: rgba(255,60,172,0.07);
+border-bottom-color: rgba(255,60,172,0.55);
+}
+.nav-tab.active {
+color: var(--hot-pink);
+background: rgba(255,60,172,0.09);
+border-bottom-color: var(--hot-pink);
+}
+
+.nav-hamburger {
+display: none; flex-direction: column; gap: 5px; cursor: pointer;
+background: none; border: none; padding: 6px;
+}
+.nav-hamburger span {
+display: block; width: 22px; height: 2.5px;
+background: var(--hot-pink); border-radius: 2px; transition: 0.3s;
+}
+.mobile-menu {
+display: none; position: fixed; top: 64px; left: 0; right: 0; z-index: 99;
+background: rgba(255,255,255,0.97); backdrop-filter: blur(22px);
+border-bottom: 2px solid rgba(255,60,172,0.3);
+flex-direction: column; padding: 0.75rem 0;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+display: flex; align-items: center; gap: 0.75rem;
+padding: 0.85rem 2rem; color: #5A3A7E;
+text-decoration: none; font-weight: 700; font-size: 0.92rem;
+border-left: 3px solid transparent; transition: all 0.2s;
+}
+.mobile-menu a:hover { color: var(--hot-pink); background: rgba(255,60,172,0.06); border-left-color: var(--hot-pink); }
+.mobile-menu .mob-divider { height: 1px; background: rgba(180,100,200,0.15); margin: 0.4rem 1.5rem; }
+
+.nav-btn {
+background: linear-gradient(135deg, var(--hot-pink), var(--neon-purple));
+color: white; border: none; border-radius: 50px; padding: 0.45rem 1.2rem;
+font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 0.82rem;
+cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; flex-shrink: 0;
+white-space: nowrap; box-shadow: 0 4px 18px rgba(255,60,172,0.35);
+}
+.nav-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 28px rgba(179,0,255,0.45); }
+
+/* HERO */
+#hero {
+position: relative; min-height: 100vh;
+display: flex; flex-direction: column; align-items: center; justify-content: center;
+overflow: hidden;
+}
+#hero-canvas { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; }
+.hero-content {
+position: relative; z-index: 2; text-align: center;
+pointer-events: none; margin-top: -4rem;
+}
+.hero-tag {
+display: inline-block;
+background: rgba(255,60,172,0.12); border: 1.5px solid rgba(255,60,172,0.5);
+border-radius: 50px; padding: 0.3rem 1rem;
+font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em;
+color: var(--hot-pink); text-transform: uppercase; margin-bottom: 1.2rem;
+box-shadow: 0 2px 14px rgba(255,60,172,0.15);
+}
+.hero-h1 {
+font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 900; line-height: 1.08;
+background: linear-gradient(135deg, #FF3CAC 0%, #FF9A3C 30%, #FFD600 55%, #39C5BB 80%, #B300FF 100%);
+-webkit-background-clip: text; -webkit-text-fill-color: transparent;
+background-clip: text; margin-bottom: 1rem;
+filter: drop-shadow(0 2px 16px rgba(255,60,172,0.22));
+}
+.hero-sub {
+font-size: clamp(1rem, 2vw, 1.2rem); color: #5A3A7E;
+max-width: 540px; margin: 0 auto 2rem; line-height: 1.6;
+}
+.hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; pointer-events: all; }
+.btn-primary {
+background: linear-gradient(135deg, var(--hot-pink), var(--neon-purple));
+color: white; border: none; border-radius: 50px; padding: 0.85rem 2rem;
+font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 1rem;
+cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+box-shadow: 0 6px 22px rgba(255,60,172,0.38);
+}
+.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(179,0,255,0.5); }
+.btn-secondary {
+background: rgba(255,255,255,0.75); border: 2px solid rgba(0,180,255,0.7); color: var(--neon-blue);
+border-radius: 50px; padding: 0.85rem 2rem;
+font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 1rem;
+cursor: pointer; transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+box-shadow: 0 4px 14px rgba(0,180,255,0.15);
+}
+.btn-secondary:hover { border-color: var(--hot-pink); color: var(--hot-pink); background: rgba(255,60,172,0.07); box-shadow: 0 6px 22px rgba(255,60,172,0.18); }
+.scroll-hint {
+position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+color: #A07CC0; font-size: 0.75rem; font-weight: 600;
+letter-spacing: 0.1em; text-transform: uppercase; z-index: 2;
+animation: bounce 2s infinite;
+}
+@keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(8px)} }
+
+/* SECTIONS */
+section { padding: 6rem 2rem; }
+.section-tag {
+display: inline-block;
+background: rgba(255,60,172,0.10); border: 1.5px solid rgba(255,60,172,0.42);
+border-radius: 50px; padding: 0.25rem 0.9rem;
+font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em;
+color: var(--hot-pink); text-transform: uppercase; margin-bottom: 1rem;
+box-shadow: 0 2px 12px rgba(255,60,172,0.12);
+}
+h2.section-title { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 900; line-height: 1.15; margin-bottom: 1rem; color: #2D1A3E; }
+.section-sub { color: #6B4A8A; line-height: 1.7; max-width: 560px; }
+.center { text-align: center; }
+.center .section-sub { margin: 0 auto; }
+
+/* JAR VIEWER */
+#affirmations {
+display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+max-width: 1200px; margin: 0 auto;
+}
+#jar-wrapper {
+position: relative; width: 100%; aspect-ratio: 3/4;
+display: flex; align-items: center; justify-content: center;
+}
+#jar-viewer-canvas {
+width: 100%; height: 100%; border-radius: 24px;
+background: transparent; touch-action: none; cursor: grab; display: block;
+}
+#jar-viewer-canvas:active { cursor: grabbing; }
+#jar-label-overlay {
+position: absolute; bottom: 22%; left: 50%; transform: translateX(-50%);
+pointer-events: none; z-index: 5;
+background: rgba(255,255,255,0.95); border: 3px solid var(--hot-pink);
+border-radius: 12px; padding: 4px 14px;
+font-family: 'Caveat', cursive; font-size: 1rem; font-weight: 700;
+color: #8B0040; white-space: nowrap;
+box-shadow: 0 0 16px rgba(255,60,172,0.45);
+}
+
+.affirm-right { display: flex; flex-direction: column; gap: 1.5rem; }
+.note-preview-list {
+display: flex; flex-direction: column; gap: 0.75rem;
+max-height: 340px; overflow-y: auto; padding-right: 0.5rem;
+}
+.note-preview-list::-webkit-scrollbar { width: 4px; }
+.note-preview-list::-webkit-scrollbar-track { background: rgba(255,255,255,0.04); border-radius: 4px; }
+.note-preview-list::-webkit-scrollbar-thumb { background: rgba(255,60,172,0.4); border-radius: 4px; }
+.note-card {
+background: rgba(255,255,255,0.75); border: 1.5px solid rgba(255,60,172,0.18);
+border-radius: 14px; padding: 0.85rem 1rem;
+display: flex; gap: 0.75rem; align-items: flex-start;
+transition: background 0.2s, border-color 0.2s, box-shadow 0.2s; cursor: pointer;
+}
+.note-card:hover { background: #fff; border-color: rgba(255,60,172,0.5); box-shadow: 0 4px 18px rgba(255,60,172,0.14); }
+.note-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+.note-text { font-size: 1.05rem; color: #2D1A3E; line-height: 1.5; font-family: 'Caveat', cursive; }
+.note-meta { font-size: 0.72rem; color: #A07CC0; margin-top: 0.25rem; }
+.affirm-count { display: flex; gap: 1rem; flex-wrap: wrap; }
+.count-chip {
+background: rgba(255,255,255,0.85); border: 1.5px solid rgba(255,60,172,0.28);
+border-radius: 12px; padding: 0.6rem 1.1rem; text-align: center;
+box-shadow: 0 2px 10px rgba(255,60,172,0.08);
+}
+.count-chip .num { font-size: 1.5rem; font-weight: 900; color: var(--hot-pink); display: block; }
+.count-chip .lbl { font-size: 0.72rem; color: #A07CC0; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
+
+/* SUBMIT */
+#submit-section { background: linear-gradient(180deg, #FFF0FA 0%, #EEF6FF 100%); border-top: 2px solid rgba(255,60,172,0.2); }
+.submit-wrap { max-width: 640px; margin: 0 auto; }
+.form-card {
+background: rgba(255,255,255,0.9); border: 1.5px solid rgba(255,60,172,0.22);
+border-radius: 24px; padding: 2.5rem; backdrop-filter: blur(14px);
+box-shadow: 0 8px 40px rgba(255,60,172,0.10);
+}
+.form-row { margin-bottom: 1.25rem; }
+.form-row label { display: block; font-weight: 700; font-size: 0.85rem; color: #5A3A7E; margin-bottom: 0.5rem; letter-spacing: 0.03em; }
+.form-row textarea, .form-row input, .form-row select {
+width: 100%; background: #F8F2FF; border: 1.5px solid rgba(179,0,255,0.22);
+border-radius: 12px; padding: 0.8rem 1rem;
+color: #2D1A3E; font-family: 'Nunito', sans-serif; font-size: 0.95rem;
+outline: none; resize: none; transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+.form-row textarea::placeholder, .form-row input::placeholder { color: #C4A8D8; }
+.form-row textarea:focus, .form-row input:focus, .form-row select:focus {
+border-color: var(--hot-pink); background: #fff;
+box-shadow: 0 0 0 3px rgba(255,60,172,0.12);
+}
+.form-row textarea { min-height: 90px; }
+.form-row select option { background: #fff; color: #2D1A3E; }
+.color-picks { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+.color-pick { width: 32px; height: 32px; border-radius: 50%; cursor: pointer; border: 3px solid transparent; transition: border-color 0.2s, transform 0.15s; }
+.color-pick:hover, .color-pick.active { border-color: #2D1A3E; transform: scale(1.15); box-shadow: 0 0 10px rgba(45,26,62,0.3); }
+.char-count { text-align: right; font-size: 0.75rem; color: #A07CC0; margin-top: 0.3rem; }
+.submit-btn {
+width: 100%; background: linear-gradient(135deg, var(--hot-pink), var(--neon-purple));
+border: none; border-radius: 14px; padding: 1rem;
+color: white; font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 1.05rem;
+cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+box-shadow: 0 6px 22px rgba(255,60,172,0.35);
+}
+.submit-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 36px rgba(179,0,255,0.45); }
+.submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+/* WORKSHOPS */
+#workshops-section { background: linear-gradient(180deg, #EEF6FF 0%, #F5F0FF 100%); }
+.workshops-grid { max-width: 1100px; margin: 3rem auto 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+.workshop-card {
+background: rgba(255,255,255,0.92); border: 1.5px solid rgba(0,180,255,0.22);
+border-radius: 20px; padding: 1.75rem;
+transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+}
+.workshop-card:hover { transform: translateY(-6px); border-color: rgba(0,180,255,0.6); box-shadow: 0 10px 30px rgba(0,180,255,0.15); }
+.workshop-icon { font-size: 2rem; margin-bottom: 1rem; width: 56px; height: 56px; border-radius: 14px; display: flex; align-items: center; justify-content: center; }
+.workshop-card h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: 0.5rem; color: #2D1A3E; }
+.workshop-card p { font-size: 0.88rem; color: #6B4A8A; line-height: 1.6; }
+.workshop-badge { display: inline-block; margin-top: 1rem; background: rgba(0,180,255,0.12); border: 1.5px solid rgba(0,180,255,0.4); border-radius: 50px; padding: 0.2rem 0.75rem; font-size: 0.72rem; font-weight: 700; color: var(--neon-blue); letter-spacing: 0.06em; }
+
+/* TOOLKIT */
+#toolkit { max-width: 1100px; margin: 0 auto; }
+.toolkit-header { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem; margin-bottom: 2.5rem; }
+.toolkit-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.25rem; }
+.tool-card {
+background: rgba(255,255,255,0.92); border: 1.5px solid rgba(0,232,192,0.3);
+border-radius: 18px; padding: 1.5rem;
+transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; cursor: pointer;
+}
+.tool-card:hover { transform: translateY(-4px); border-color: rgba(0,232,192,0.7); box-shadow: 0 8px 24px rgba(0,232,192,0.18); }
+.tool-emoji { font-size: 2rem; margin-bottom: 0.75rem; }
+.tool-card h4 { font-size: 1rem; font-weight: 800; margin-bottom: 0.4rem; color: #2D1A3E; }
+.tool-card p { font-size: 0.83rem; color: #6B4A8A; line-height: 1.5; }
+.tool-card .tool-btn { margin-top: 1rem; font-size: 0.8rem; font-weight: 700; color: #009B80; background: rgba(0,232,192,0.12); border: 1.5px solid rgba(0,232,192,0.45); border-radius: 50px; padding: 0.3rem 0.9rem; cursor: pointer; transition: background 0.2s; display: inline-block; }
+.tool-card .tool-btn:hover { background: rgba(0,232,192,0.24); }
+
+/* VOLUNTEER */
+#volunteer { background: linear-gradient(180deg, #F8F0FF 0%, #FFF0FA 100%); }
+.volunteer-inner { max-width: 1100px; margin: 0 auto; }
+.volunteer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; margin-top: 3rem; }
+.vol-roles { display: flex; flex-direction: column; gap: 1rem; }
+.vol-role {
+background: rgba(255,255,255,0.92); border: 1.5px solid rgba(179,0,255,0.2);
+border-radius: 16px; padding: 1.25rem 1.5rem; display: flex; align-items: flex-start; gap: 1rem;
+transition: border-color 0.2s, box-shadow 0.2s;
+}
+.vol-role:hover { border-color: rgba(179,0,255,0.55); box-shadow: 0 8px 22px rgba(179,0,255,0.14); }
+.vol-role-icon { font-size: 1.5rem; flex-shrink: 0; }
+.vol-role h4 { font-size: 0.95rem; font-weight: 800; margin-bottom: 0.25rem; color: #2D1A3E; }
+.vol-role p { font-size: 0.82rem; color: #6B4A8A; line-height: 1.5; }
+.vol-role .hours { font-size: 0.72rem; font-weight: 700; color: #9000CC; background: rgba(179,0,255,0.10); border: 1.5px solid rgba(179,0,255,0.3); border-radius: 50px; padding: 0.15rem 0.7rem; margin-top: 0.4rem; display: inline-block; }
+.vol-form .form-card { background: rgba(255,255,255,0.92); border-color: rgba(179,0,255,0.25); }
+
+/* DONATIONS */
+#donations { border-top: 2px solid rgba(255,154,60,0.2); background: linear-gradient(180deg, #FFFBEE 0%, #FFF0FA 100%); }
+.donations-inner { max-width: 1100px; margin: 0 auto; }
+.donations-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 3rem; align-items: start; }
+.donation-info h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 1rem; color: #C05800; }
+.donation-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.5rem; }
+.donation-list li { display: flex; align-items: center; gap: 0.75rem; font-size: 0.9rem; color: #6B4A8A; }
+.donation-list li::before { content: '✦'; color: var(--peach); font-size: 0.7rem; flex-shrink: 0; }
+.address-card { background: linear-gradient(135deg, rgba(255,154,60,0.14), rgba(255,60,172,0.07)); border: 1.5px solid rgba(255,107,0,0.35); border-radius: 18px; padding: 1.5rem; box-shadow: 0 6px 20px rgba(255,107,0,0.09); }
+.address-card h4 { font-size: 1rem; font-weight: 800; margin-bottom: 0.3rem; color: #C05800; }
+.address-card .place-name { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.75rem; color: #2D1A3E; }
+.address-card address { font-style: normal; line-height: 1.7; color: #5A3A7E; font-size: 0.9rem; }
+.map-btn { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1rem; background: rgba(255,214,0,0.18); border: 1.5px solid rgba(255,180,0,0.55); border-radius: 50px; padding: 0.5rem 1.1rem; color: #8A6000; font-weight: 700; font-size: 0.85rem; cursor: pointer; text-decoration: none; transition: background 0.2s, box-shadow 0.2s; box-shadow: 0 2px 12px rgba(255,180,0,0.12); }
+.map-btn:hover { background: rgba(255,214,0,0.32); box-shadow: 0 4px 18px rgba(255,180,0,0.22); }
+.drop-info { background: rgba(255,255,255,0.90); border: 1.5px solid rgba(255,154,60,0.25); border-radius: 18px; padding: 1.75rem; }
+.drop-info h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: 1rem; color: #2D1A3E; }
+.drop-steps { display: flex; flex-direction: column; gap: 1rem; }
+.drop-step { display: flex; gap: 1rem; align-items: flex-start; }
+.step-num { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--peach), var(--hot-pink)); display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.85rem; flex-shrink: 0; color: white; box-shadow: 0 4px 12px rgba(255,107,0,0.3); }
+.step-text h5 { font-size: 0.9rem; font-weight: 800; margin-bottom: 0.2rem; color: #2D1A3E; }
+.step-text p { font-size: 0.82rem; color: #6B4A8A; line-height: 1.5; }
+
+/* MONTHLY */
+#monthly { background: linear-gradient(180deg, #FFF0FA 0%, #EEF6FF 100%); border-top: 2px solid rgba(255,60,172,0.15); }
+.monthly-inner { max-width: 900px; margin: 0 auto; }
+.monthly-question-card { background: linear-gradient(135deg, rgba(255,60,172,0.10), rgba(255,214,0,0.10)); border: 2px solid rgba(255,60,172,0.38); border-radius: 24px; padding: 3rem; text-align: center; margin: 2.5rem 0; box-shadow: 0 8px 40px rgba(255,60,172,0.12); }
+.monthly-q-emoji { font-size: 3rem; margin-bottom: 1rem; }
+.monthly-q-text { font-family: 'Caveat', cursive; font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 700; color: #2D1A3E; line-height: 1.35; margin-bottom: 1.5rem; }
+.monthly-tag { display: inline-block; background: rgba(255,60,172,0.12); border: 1.5px solid rgba(255,60,172,0.45); border-radius: 50px; padding: 0.3rem 1rem; font-size: 0.8rem; font-weight: 700; color: var(--hot-pink); letter-spacing: 0.06em; text-transform: uppercase; }
+.responses-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+.response-card { background: rgba(255,255,255,0.88); border: 1.5px solid rgba(255,255,255,0.6); border-radius: 14px; padding: 1.1rem; font-family: 'Caveat', cursive; font-size: 1rem; color: #3D2060; line-height: 1.5; }
+
+/* ABOUT */
+#about { max-width: 1100px; margin: 0 auto; }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; margin-top: 3rem; }
+.region-map { background: rgba(255,255,255,0.88); border: 1.5px solid rgba(0,180,255,0.25); border-radius: 20px; padding: 2rem; text-align: center; }
+.county-chips { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.5rem; }
+.county-chip { background: rgba(0,180,255,0.10); border: 1.5px solid rgba(0,180,255,0.35); border-radius: 50px; padding: 0.3rem 0.9rem; font-size: 0.8rem; font-weight: 700; color: #0068AA; }
+.about-text h2 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 900; line-height: 1.15; margin-bottom: 1rem; color: #2D1A3E; }
+.about-text p { color: #6B4A8A; line-height: 1.7; margin-bottom: 1rem; font-size: 0.95rem; }
+.stat-row { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-top: 1.5rem; }
+.stat-box { flex: 1; min-width: 100px; background: rgba(255,255,255,0.88); border: 1.5px solid rgba(255,60,172,0.22); border-radius: 14px; padding: 1rem; text-align: center; box-shadow: 0 2px 10px rgba(255,60,172,0.07); }
+.stat-box .s-num { font-size: 1.6rem; font-weight: 900; color: var(--hot-pink); }
+.stat-box .s-lbl { font-size: 0.72rem; color: #A07CC0; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.25rem; }
+
+/* CONTACT */
+#contact { border-top: 2px solid rgba(0,232,192,0.25); background: linear-gradient(180deg, #F0FFF8 0%, #EEF6FF 100%); }
+.contact-inner { max-width: 920px; margin: 0 auto; }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3rem; }
+.contact-card { background: rgba(255,255,255,0.90); border: 1.5px solid rgba(0,232,192,0.28); border-radius: 22px; padding: 2rem; transition: border-color 0.25s, box-shadow 0.25s; }
+.contact-card:hover { border-color: rgba(0,232,192,0.65); box-shadow: 0 8px 28px rgba(0,232,192,0.14); }
+.contact-icon { font-size: 1.75rem; width: 54px; height: 54px; border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
+.contact-card h3 { font-size: 1.05rem; font-weight: 800; margin-bottom: 0.4rem; color: #2D1A3E; }
+.contact-card p { font-size: 0.85rem; color: #6B4A8A; line-height: 1.6; margin-bottom: 0.75rem; }
+.contact-link { display: inline-flex; align-items: center; gap: 0.45rem; color: #009B80; font-weight: 700; font-size: 0.9rem; text-decoration: none; border-bottom: 1.5px solid rgba(0,155,128,0.35); padding-bottom: 1px; transition: color 0.2s, border-color 0.2s; word-break: break-all; }
+.contact-link:hover { color: var(--hot-pink); border-color: var(--hot-pink); }
+.contact-full-row { margin-top: 1.75rem; background: linear-gradient(135deg, rgba(255,60,172,0.07), rgba(179,0,255,0.07)); border: 2px solid rgba(255,60,172,0.28); border-radius: 20px; padding: 1.75rem 2rem; display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; box-shadow: 0 6px 30px rgba(255,60,172,0.09); }
+.contact-full-row .cf-emoji { font-size: 2.8rem; flex-shrink: 0; }
+.contact-full-row .cf-body h3 { font-size: 1rem; font-weight: 800; margin-bottom: 0.25rem; color: #2D1A3E; }
+.contact-full-row .cf-body p { font-size: 0.85rem; color: #6B4A8A; line-height: 1.6; margin-bottom: 0.5rem; }
+.contact-full-row .contact-link { color: var(--hot-pink); border-color: rgba(255,60,172,0.38); font-size: 1rem; }
+.contact-full-row .contact-link:hover { color: #9000CC; border-color: #9000CC; }
+.contact-divider { display: flex; align-items: center; gap: 1rem; margin: 2rem 0; }
+.contact-divider hr { flex: 1; border: none; border-top: 1px solid rgba(180,100,200,0.2); }
+.contact-divider span { font-size: 0.75rem; font-weight: 700; color: #A07CC0; letter-spacing: 0.09em; text-transform: uppercase; white-space: nowrap; }
+
+/* FOOTER */
+footer { border-top: 2px solid rgba(255,60,172,0.22); padding: 3rem 2.5rem 2rem; text-align: center; background: linear-gradient(180deg, #FFF0FA 0%, #F5F0FF 100%); }
+.footer-inner { max-width: 900px; margin: 0 auto; }
+.footer-logo { font-family: 'Caveat', cursive; font-size: 2rem; font-weight: 700; color: var(--hot-pink); margin-bottom: 0.5rem; }
+.footer-desc { color: #6B4A8A; font-size: 0.88rem; max-width: 420px; margin: 0 auto 1.25rem; line-height: 1.6; }
+.footer-email { margin-bottom: 1.5rem; }
+.footer-email a { display: inline-flex; align-items: center; gap: 0.4rem; color: #009B80; font-weight: 700; font-size: 0.9rem; text-decoration: none; transition: color 0.2s; }
+.footer-email a:hover { color: var(--hot-pink); }
+.footer-links { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem; }
+.footer-links a { color: #A07CC0; font-size: 0.85rem; text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--hot-pink); }
+.footer-copy { color: #C4A8D8; font-size: 0.78rem; }
+
+/* MODAL */
+.modal-overlay { position: fixed; inset: 0; z-index: 200; background: rgba(45,26,62,0.55); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; padding: 1rem; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+.modal-box { background: linear-gradient(145deg, #fff 0%, #FFF0FA 100%); border: 2px solid rgba(255,60,172,0.3); border-radius: 24px; padding: 2.5rem; max-width: 480px; width: 100%; transform: scale(0.95); transition: transform 0.3s; max-height: 90vh; overflow-y: auto; box-shadow: 0 16px 60px rgba(255,60,172,0.18); }
+.modal-overlay.open .modal-box { transform: scale(1); }
+.modal-close { position: absolute; top: 1.25rem; right: 1.25rem; background: rgba(255,60,172,0.10); border: 1.5px solid rgba(255,60,172,0.3); border-radius: 50%; width: 32px; height: 32px; color: var(--hot-pink); font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.modal-close:hover { background: rgba(255,60,172,0.2); border-color: var(--hot-pink); }
+
+/* TOAST */
+.toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(6rem); background: linear-gradient(135deg, #fff 0%, #FFF0FA 100%); border: 2px solid rgba(255,60,172,0.4); border-radius: 14px; padding: 1rem 1.75rem; z-index: 300; display: flex; align-items: center; gap: 0.75rem; font-weight: 700; font-size: 0.9rem; color: #2D1A3E; box-shadow: 0 8px 40px rgba(255,60,172,0.2); transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.toast.show { transform: translateX(-50%) translateY(0); }
+.toast-emoji { font-size: 1.3rem; }
+
+/* TOOL MODAL */
+.tool-content { padding: 0.5rem 0; }
+.tool-content h3 { font-size: 1.3rem; font-weight: 900; margin-bottom: 1rem; color: #2D1A3E; }
+.tool-content p { color: #5A3A7E; line-height: 1.7; margin-bottom: 0.75rem; font-size: 0.93rem; }
+.tool-content ul { padding-left: 1.25rem; }
+.tool-content ul li { color: #5A3A7E; line-height: 1.7; margin-bottom: 0.4rem; font-size: 0.9rem; }
+.breathe-box { margin: 1.5rem 0; text-align: center; background: rgba(0,232,192,0.07); border: 1.5px solid rgba(0,232,192,0.3); border-radius: 18px; padding: 1.5rem; }
+.breathe-circle { width: 80px; height: 80px; border-radius: 50%; background: radial-gradient(circle, rgba(0,232,192,0.55), rgba(0,180,255,0.15)); margin: 0 auto 1rem; animation: breathe 8s ease-in-out infinite; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; color: #009B80; letter-spacing: 0.04em; box-shadow: 0 0 20px rgba(0,232,192,0.25); }
+@keyframes breathe { 0%,100%{transform:scale(1);opacity:0.7} 50%{transform:scale(1.5);opacity:1} }
+.breathe-text { color: #7B9E96; font-size: 0.85rem; }
+
+/* PARTICLES */
+.particle { position: fixed; pointer-events: none; border-radius: 50%; animation: particle-float 2s ease-out forwards; }
+@keyframes particle-float { 0%{opacity:1;transform:translateY(0) scale(1)} 100%{opacity:0;transform:translateY(-140px) scale(0.2)} }
+
+#workshops-section { padding: 6rem 2rem; }
+#toolkit-section { padding: 6rem 2rem; background: radial-gradient(ellipse at 100% 0%, rgba(0,255,209,0.08), transparent 50%); }
+
+@media (max-width: 900px) {
+nav { padding: 0 1.25rem; }
+.nav-tabs { display: none; }
+.nav-hamburger { display: flex; }
+}
+@media (max-width: 768px) {
+.nav-btn { display: none; }
+#affirmations, .volunteer-grid, .donations-grid, .about-grid { grid-template-columns: 1fr; }
+#jar-wrapper { aspect-ratio: 1/1; }
+section { padding: 4rem 1.25rem; }
+.contact-grid { grid-template-columns: 1fr; }
+.contact-full-row { flex-direction: column; gap: 1rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+<a class="nav-logo" href="#">
+<span class="jar-icon">🫙</span> Whisper Jars
+</a>
+<div class="nav-tabs" id="nav-tabs">
+<a class="nav-tab active" href="#hero" data-section="hero"><span class="tab-icon">🏠</span> Home</a>
+<a class="nav-tab" href="#affirm-section" data-section="affirm-section"><span class="tab-icon">🫙</span> Affirmations</a>
+<a class="nav-tab" href="#workshops-section" data-section="workshops-section"><span class="tab-icon">🏫</span> Workshops</a>
+<a class="nav-tab" href="#toolkit-section" data-section="toolkit-section"><span class="tab-icon">🌿</span> Toolkit</a>
+<a class="nav-tab" href="#volunteer" data-section="volunteer"><span class="tab-icon">💜</span> Volunteer</a>
+<a class="nav-tab" href="#donations" data-section="donations"><span class="tab-icon">🎨</span> Donate</a>
+<a class="nav-tab" href="#about" data-section="about"><span class="tab-icon">🗺️</span> About</a>
+<a class="nav-tab" href="#contact" data-section="contact"><span class="tab-icon">💌</span> Contact</a>
+</div>
+<button class="nav-btn" onclick="openSubmitModal()">+ Share Affirmation</button>
+<button class="nav-hamburger" id="hamburger-btn" onclick="toggleMobileMenu()" aria-label="Open menu">
+<span></span><span></span><span></span>
+</button>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu">
+<a href="#hero" onclick="closeMobileMenu()">🏠 Home</a>
+<div class="mob-divider"></div>
+<a href="#affirm-section" onclick="closeMobileMenu()">🫙 Affirmations</a>
+<a href="#workshops-section" onclick="closeMobileMenu()">🏫 Workshops</a>
+<a href="#toolkit-section" onclick="closeMobileMenu()">🌿 Toolkit</a>
+<a href="#volunteer" onclick="closeMobileMenu()">💜 Volunteer</a>
+<a href="#donations" onclick="closeMobileMenu()">🎨 Donate Supplies</a>
+<a href="#about" onclick="closeMobileMenu()">🗺️ About NOVA</a>
+<a href="#contact" onclick="closeMobileMenu()">💌 Contact</a>
+<div class="mob-divider"></div>
+<a href="#" onclick="openSubmitModal();closeMobileMenu()">✍️ Share an Affirmation</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+<canvas id="hero-canvas"></canvas>
+<div class="hero-content">
+<div class="hero-tag">✦ Northern Virginia Community Project</div>
+<h1 class="hero-h1">Whisper Jars<br>Community</h1>
+<p class="hero-sub">A safe, joyful space where students, schools, and libraries across NOVA share affirmations, build healthy habits, and lift each other up — one note at a time.</p>
+<div class="hero-actions">
+<button class="btn-primary" onclick="openSubmitModal()">🫙 Add Your Affirmation</button>
+<button class="btn-secondary" onclick="document.getElementById('affirm-section').scrollIntoView({behavior:'smooth'})">See the Jar ↓</button>
+</div>
+</div>
+<div class="scroll-hint">
+<svg width="16" height="24" viewBox="0 0 16 24"><rect x="6" y="2" width="4" height="8" rx="2" fill="currentColor"/><path d="M8 14 L4 19 L8 24 L12 19 Z" fill="currentColor" opacity="0.4"/></svg>
+Scroll to explore
+</div>
+</section>
+
+<!-- AFFIRMATION JAR -->
+<section id="affirm-section" style="padding:6rem 2rem;">
+<div id="affirmations">
+<div id="jar-wrapper">
+<canvas id="jar-viewer-canvas"></canvas>
+<div id="jar-label-overlay">Whisper Jars ✨</div>
+</div>
+<div class="affirm-right">
+<div>
+<div class="section-tag">🌟 Community Jar</div>
+<h2 class="section-title">Words that warm<br>our community</h2>
+<p class="section-sub">Every note inside represents a student, teacher, or community member choosing positivity. Rotate the jar — your affirmation lives here.</p>
+</div>
+<div class="affirm-count">
+<div class="count-chip"><span class="num" id="total-count">…</span><span class="lbl">Affirmations</span></div>
+<div class="count-chip"><span class="num">12+</span><span class="lbl">Schools</span></div>
+<div class="count-chip"><span class="num">8+</span><span class="lbl">Libraries</span></div>
+</div>
+<div>
+<p style="font-size:0.8rem;font-weight:700;color:#A07CC0;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:0.75rem;">Latest whispers</p>
+<div class="note-preview-list" id="note-list"><div style="color:#C4A8D8;font-size:0.9rem;padding:1rem 0;">Loading affirmations…</div></div>
+</div>
+<button class="btn-primary" style="width:fit-content;" onclick="openSubmitModal()">✍️ Write Your Own Note</button>
+</div>
+</div>
+</section>
+
+<!-- SUBMIT SECTION -->
+<section id="submit-section">
+<div class="submit-wrap">
+<div class="center">
+<div class="section-tag">✍️ Your Voice</div>
+<h2 class="section-title">Drop a note into the jar</h2>
+<p class="section-sub" style="margin:0 auto 2.5rem;">Your affirmation will appear inside the community jar — visible to students across Northern Virginia.</p>
+</div>
+<div class="form-card">
+<div class="form-row">
+<label>Your affirmation or positive message *</label>
+<textarea id="affirm-text-main" placeholder="I am capable of achieving great things…" maxlength="140" oninput="updateCharCount(this,'main-count')"></textarea>
+<div class="char-count"><span id="main-count">0</span>/140</div>
+</div>
+<div class="form-row">
+<label>Mood / Theme</label>
+<select id="affirm-mood-main">
+<option value="joy">😊 Joy</option>
+<option value="courage">💪 Courage</option>
+<option value="growth">🌱 Growth</option>
+<option value="kindness">💛 Kindness</option>
+<option value="calm">🌊 Calm</option>
+<option value="hope">🌈 Hope</option>
+</select>
+</div>
+<div class="form-row">
+<label>Pick your note color</label>
+<div class="color-picks" id="color-picks-main"></div>
+</div>
+<div class="form-row">
+<label>Your name (optional)</label>
+<input type="text" id="affirm-name-main" placeholder="Anonymous" maxlength="30">
+</div>
+<button class="submit-btn" id="submit-btn-main" onclick="submitAffirmation('main')">
+<span>🫙</span> Drop into the Jar
+</button>
+</div>
+</div>
+</section>
+
+<!-- MONTHLY QUESTION -->
+<section id="monthly">
+<div class="monthly-inner">
+<div class="center">
+<div class="section-tag">📅 Monthly Reflection</div>
+<h2 class="section-title">This Month's Question</h2>
+</div>
+<div class="monthly-question-card">
+<div class="monthly-q-emoji" id="monthly-emoji">🌿</div>
+<div class="monthly-q-text" id="monthly-q-text"></div>
+<div class="monthly-tag" id="monthly-tag"></div>
+</div>
+<div class="center" style="margin-bottom:2rem;">
+<p class="section-sub">Community responses</p>
+</div>
+<div class="responses-grid" id="responses-grid"></div>
+</div>
+</section>
+
+<!-- WORKSHOPS -->
+<section id="workshops-section">
+<div class="center">
+<div class="section-tag">🏫 Online Workshops</div>
+<h2 class="section-title">Free workshops for<br>schools & libraries</h2>
+<p class="section-sub" style="margin:0 auto 1rem;">Live and self-paced sessions for K–12 students, educators, and librarians across NOVA. All free. All virtual.</p>
+</div>
+<div class="workshops-grid">
+<div class="workshop-card"><div class="workshop-icon" style="background:rgba(255,179,71,0.15);">🌻</div><h3>Building Your Affirmation Practice</h3><p>Learn to craft meaningful personal affirmations that stick. Includes journaling exercises and a take-home card template.</p><span class="workshop-badge">Grades 3–8 · 45 min</span></div>
+<div class="workshop-card"><div class="workshop-icon" style="background:rgba(0,212,255,0.12);">🧠</div><h3>Mindset Reset: From Fixed to Growth</h3><p>Interactive session exploring the science of growth mindset, neuroplasticity, and practical daily habits.</p><span class="workshop-badge">Grades 6–12 · 60 min</span></div>
+<div class="workshop-card"><div class="workshop-icon" style="background:rgba(57,255,20,0.10);">🤝</div><h3>Community Circles for Educators</h3><p>Facilitate peer-support circles in your classroom using Whisper Jar techniques. For teachers and librarians.</p><span class="workshop-badge">Adults · 90 min · PD Credit</span></div>
+<div class="workshop-card"><div class="workshop-icon" style="background:rgba(255,60,172,0.12);">🎨</div><h3>Art Journaling for Emotional Wellbeing</h3><p>Creative session combining visual art and affirmation practice. Supplies kindly donated through our drives.</p><span class="workshop-badge">All Ages · 60 min</span></div>
+<div class="workshop-card"><div class="workshop-icon" style="background:rgba(191,0,255,0.12);">🌬️</div><h3>Breathing & Calm: A Mindfulness Intro</h3><p>Guided breathing, body scan, and simple meditation techniques. Perfect for morning meetings or advisory periods.</p><span class="workshop-badge">All Ages · 30 min</span></div>
+<div class="workshop-card"><div class="workshop-icon" style="background:rgba(255,230,0,0.10);">📚</div><h3>Library Leader Program</h3><p>Train student ambassadors to run Whisper Jar stations at their school or library. Earn community hours.</p><span class="workshop-badge">Grades 7–12 · 4 sessions</span></div>
+</div>
+
+</section>
+
+<!-- TOOLKIT -->
+<section id="toolkit-section">
+<div id="toolkit">
+<div class="toolkit-header">
+<div>
+<div class="section-tag">🌿 Free Toolkit</div>
+<h2 class="section-title">Mindfulness<br>Toolkit</h2>
+<p class="section-sub">Downloadable, printable, and interactive resources for classrooms and libraries.</p>
+</div>
+</div>
+<div class="toolkit-grid">
+<div class="tool-card" onclick="openTool('breathe')"><div class="tool-emoji">🫁</div><h4>4-7-8 Breathing Guide</h4><p>Animated breathing exercise to reduce anxiety and center focus.</p><div class="tool-btn">Try it →</div></div>
+<div class="tool-card" onclick="openTool('journal')"><div class="tool-emoji">📓</div><h4>Daily Reflection Journal</h4><p>3 simple prompts to start or end the day with intention.</p><div class="tool-btn">Open →</div></div>
+<div class="tool-card" onclick="openTool('affirmcard')"><div class="tool-emoji">🃏</div><h4>Affirmation Card Deck</h4><p>52 printable affirmation cards — one for each week of the year.</p><div class="tool-btn">Download →</div></div>
+<div class="tool-card" onclick="openTool('gratitude')"><div class="tool-emoji">🙏</div><h4>Gratitude Jar Instructions</h4><p>Step-by-step guide to create a physical Whisper Jar for your classroom.</p><div class="tool-btn">Get Guide →</div></div>
+<div class="tool-card" onclick="openTool('poster')"><div class="tool-emoji">🖼️</div><h4>Classroom Poster Pack</h4><p>Printable posters with affirmations, growth mindset quotes, and calming visuals.</p><div class="tool-btn">Download →</div></div>
+<div class="tool-card" onclick="openTool('check')"><div class="tool-emoji">📊</div><h4>Mood Check-In Wheel</h4><p>Visual feelings wheel for morning circles to identify and name emotions.</p><div class="tool-btn">View →</div></div>
+</div>
+</div>
+</section>
+
+<!-- VOLUNTEER -->
+<section id="volunteer">
+<div class="volunteer-inner">
+<div class="section-tag">💜 Volunteer</div>
+<h2 class="section-title">Earn service hours<br>by giving back</h2>
+<p class="section-sub">Students can volunteer virtually — no commute, real impact. Earn documented community service hours.</p>
+<div class="volunteer-grid">
+<div class="vol-roles">
+<div class="vol-role"><div class="vol-role-icon">✍️</div><div><h4>Affirmation Writer</h4><p>Craft and curate weekly affirmation sets for specific age groups.</p><span class="hours">2–4 hrs/month</span></div></div>
+<div class="vol-role"><div class="vol-role-icon">🎨</div><div><h4>Art Supply Drive Coordinator</h4><p>Organize local donation drives at your school or library and coordinate delivery.</p><span class="hours">4–6 hrs/drive</span></div></div>
+<div class="vol-role"><div class="vol-role-icon">💻</div><div><h4>Digital Outreach Ambassador</h4><p>Share Whisper Jars with peers, create content, or help classmates submit affirmations.</p><span class="hours">1–2 hrs/week</span></div></div>
+<div class="vol-role"><div class="vol-role-icon">📸</div><div><h4>Workshop Facilitator Assistant</h4><p>Support facilitators during live virtual workshops — manage chat, time-keep, break-out rooms.</p><span class="hours">1–3 hrs/session</span></div></div>
+</div>
+<div class="vol-form">
+<div class="form-card">
+<h3 style="font-size:1.2rem;font-weight:900;margin-bottom:1.25rem;">Apply to Volunteer</h3>
+<div class="form-row"><label>Full Name *</label><input type="text" id="vol-name" placeholder="Your name"></div>
+<div class="form-row"><label>Email Address *</label><input type="email" id="vol-email" placeholder="you@school.edu"></div>
+<div class="form-row"><label>School / Library</label><input type="text" id="vol-school" placeholder="Your institution"></div>
+<div class="form-row"><label>Role Interest</label><select id="vol-role-select"><option>Affirmation Writer</option><option>Art Supply Drive Coordinator</option><option>Digital Outreach Ambassador</option><option>Workshop Facilitator Assistant</option></select></div>
+<button class="submit-btn" onclick="submitVolunteer()"><span>💜</span> Submit Application</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- DONATIONS -->
+<section id="donations" style="padding:6rem 2rem;">
+<div class="donations-inner">
+<div class="section-tag">🎨 Art Supply Drives</div>
+<h2 class="section-title">Donate art supplies to<br>your community</h2>
+<p class="section-sub">Used or new — every crayon, marker, sketchbook, and paintbrush helps students express themselves.</p>
+<div class="donations-grid">
+<div class="donation-info">
+<h3>What we accept:</h3>
+<ul class="donation-list">
+<li>Colored pencils, crayons, markers</li>
+<li>Sketchbooks, drawing paper, card stock</li>
+<li>Watercolor & acrylic paints</li>
+<li>Paintbrushes, palettes, canvases</li>
+<li>Scissors, glue sticks, tape</li>
+<li>Stickers, stamps, washi tape</li>
+<li>Clay, foam sheets, craft kits</li>
+<li>Yarn, fabric scraps, beads</li>
+</ul>
+<div class="address-card">
+<h4>🏠 Drop-off Location</h4>
+<p class="place-name">Bristow Village Shopping Center</p>
+<address>11976 Bristow Village Blvd<br>Bristow, VA 20136<br><br>📍 Prince William County, NOVA</address>
+<a class="map-btn" href="https://maps.google.com/?q=11976+Bristow+Village+Blvd+Bristow+VA+20136" target="_blank" rel="noopener">🗺️ Get Directions</a>
+</div>
+</div>
+<div class="drop-info">
+<h3>How to donate</h3>
+<div class="drop-steps">
+<div class="drop-step"><div class="step-num">1</div><div class="step-text"><h5>Collect supplies</h5><p>Gather gently-used or new art supplies at home or organize a drive at your school.</p></div></div>
+<div class="drop-step"><div class="step-num">2</div><div class="step-text"><h5>Sign up online</h5><p>Register your donation so we can expect your drop-off and prepare a receipt.</p></div></div>
+<div class="drop-step"><div class="step-num">3</div><div class="step-text"><h5>Drop off at the Clubhouse</h5><p>Bring supplies to Bristow Village Shopping Center. Volunteers there Mon–Fri 3–6 PM & Sat 10 AM–2 PM.</p></div></div>
+<div class="drop-step"><div class="step-num">4</div><div class="step-text"><h5>We handle the rest</h5><p>Donations are sorted and distributed to schools and libraries across NOVA.</p></div></div>
+</div>
+<div id="donation-form" style="margin-top:1.75rem;">
+  <div class="form-row"><label>Your Full Name *</label><input type="text" id="don-name" placeholder="Jane Smith"></div>
+  <div class="form-row"><label>Email Address *</label><input type="email" id="don-email" placeholder="you@example.com"></div>
+  <div class="form-row"><label>Phone Number (optional)</label><input type="tel" id="don-phone" placeholder="(703) 555-0000"></div>
+  <div class="form-row"><label>What are you donating?</label><textarea id="don-items" style="min-height:70px;" placeholder="e.g. 24 colored pencils, 3 sketchbooks, watercolor set…"></textarea></div>
+  <div class="form-row"><label>Preferred Drop-off Date</label><input type="date" id="don-date"></div>
+  <div class="form-row"><label>Additional Notes (optional)</label><input type="text" id="don-notes" placeholder="Any special instructions?"></div>
+  <button class="btn-primary" style="width:100%;border-radius:14px;padding:1rem;" onclick="submitDonation()">📦 Register My Donation</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" style="padding:6rem 2rem;">
+<div class="about-grid">
+<div class="region-map">
+<div style="font-size:4rem;margin-bottom:1rem;">🗺️</div>
+<h3 style="font-size:1.1rem;font-weight:800;margin-bottom:0.5rem;">Northern Virginia</h3>
+<p style="font-size:0.85rem;color:#6B4A8A;margin-bottom:1.25rem;">Reaching across NOVA — from Fairfax to Prince William</p>
+<div class="county-chips">
+<span class="county-chip">Fairfax County</span><span class="county-chip">Prince William</span><span class="county-chip">Arlington</span><span class="county-chip">Alexandria</span><span class="county-chip">Loudoun County</span><span class="county-chip">Stafford</span><span class="county-chip">Fauquier</span><span class="county-chip">Manassas</span>
+</div>
+</div>
+<div class="about-text">
+<div class="section-tag">🌱 Our Mission</div>
+<h2>Rooted in community,<br>growing together</h2>
+<p>Whisper Jars began as a simple idea: what if every student in Northern Virginia could start their day with a message of encouragement — from someone just like them?</p>
+<p>By partnering with local schools and libraries, we are creating a regional network of positivity. Our affirmation jars, workshops, and toolkits give educators practical tools to foster healthy mindsets — at no cost.</p>
+<p>We welcome every county, every classroom, every voice. The more notes in the jar, the stronger our community becomes.</p>
+<div class="stat-row">
+<div class="stat-box"><div class="s-num">8</div><div class="s-lbl">Counties</div></div>
+<div class="stat-box"><div class="s-num">12+</div><div class="s-lbl">Schools</div></div>
+<div class="stat-box"><div class="s-num">8+</div><div class="s-lbl">Libraries</div></div>
+<div class="stat-box"><div class="s-num">Free</div><div class="s-lbl">Always</div></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="padding:6rem 2rem;">
+<div class="contact-inner">
+<div class="center">
+<div class="section-tag">💌 Get in Touch</div>
+<h2 class="section-title">Contact Us</h2>
+<p class="section-sub" style="margin:0 auto;">Have questions about workshops, donations, volunteering, or bringing Whisper Jars to your school or library? We'd love to hear from you.</p>
+</div>
+<div class="contact-full-row">
+<div class="cf-emoji">📬</div>
+<div class="cf-body">
+<h3>Email us anytime</h3>
+<p>For workshop inquiries, partnership opportunities, donation coordination, or general questions about the Whisper Jars Community project across NOVA.</p>
+<a class="contact-link" href="mailto:whisperjarscommunityva@gmail.com">✉️ whisperjarscommunityva@gmail.com</a>
+</div>
+</div>
+<div class="contact-divider"><hr><span>More ways to connect</span><hr></div>
+<div class="contact-grid">
+<div class="contact-card"><div class="contact-icon" style="background:rgba(0,212,255,0.12);">🏫</div><h3>Schools & Libraries</h3><p>Want to bring Whisper Jars to your campus? Reach out to schedule a free virtual workshop or get your own classroom toolkit.</p><a class="contact-link" href="mailto:whisperjarscommunityva@gmail.com?subject=School%20Partnership%20Inquiry">Email for partnerships →</a></div>
+<div class="contact-card"><div class="contact-icon" style="background:rgba(191,0,255,0.12);">💜</div><h3>Volunteer Inquiries</h3><p>Questions about service hours, roles, or the volunteer application process? We're happy to walk you through it.</p><a class="contact-link" href="mailto:whisperjarscommunityva@gmail.com?subject=Volunteer%20Inquiry">Email about volunteering →</a></div>
+<div class="contact-card"><div class="contact-icon" style="background:rgba(255,107,0,0.12);">🎨</div><h3>Art Supply Donations</h3><p>Coordinating a donation drive or need to schedule a drop-off at Bristow Village Shopping Center? Let us know in advance.</p><a class="contact-link" href="mailto:whisperjarscommunityva@gmail.com?subject=Donation%20Drop-Off">Email about donations →</a></div>
+<div class="contact-card"><div class="contact-icon" style="background:rgba(0,255,209,0.10);">🌿</div><h3>General Questions</h3><p>Curious about the project, want to share feedback, or have an idea for a future workshop or community event?</p><a class="contact-link" href="mailto:whisperjarscommunityva@gmail.com?subject=General%20Question">Send us a message →</a></div>
+</div>
+<div style="margin-top:2rem;background:rgba(255,255,255,0.85);border:1px solid rgba(0,232,192,0.25);border-radius:18px;padding:1.5rem 2rem;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;">
+<span style="font-size:2rem;flex-shrink:0;">📍</span>
+<div>
+<p style="font-weight:800;font-size:0.95rem;margin-bottom:0.2rem;">Art Supply Drop-Off Location</p>
+<p style="font-size:0.85rem;color:#6B4A8A;line-height:1.6;margin:0;">Bristow Village Shopping Center · 11976 Bristow Village Blvd, Bristow, VA 20136 · Mon–Fri 3–6 PM &amp; Sat 10 AM–2 PM</p>
+</div>
+<a class="map-btn" style="margin-left:auto;" href="https://maps.google.com/?q=11976+Bristow+Village+Blvd+Bristow+VA+20136" target="_blank" rel="noopener">🗺️ Directions</a>
+</div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+<div class="footer-inner">
+<div class="footer-logo">🫙 Whisper Jars</div>
+<p class="footer-desc">Connecting Northern Virginia communities through affirmations, mindfulness, and shared positivity. A free regional project for schools and libraries.</p>
+<div class="footer-email"><a href="mailto:whisperjarscommunityva@gmail.com">✉️ whisperjarscommunityva@gmail.com</a></div>
+<div class="footer-links">
+<a href="#affirm-section">Affirmation Jar</a>
+<a href="#workshops-section">Workshops</a>
+<a href="#toolkit-section">Toolkit</a>
+<a href="#volunteer">Volunteer</a>
+<a href="#donations">Donate Supplies</a>
+<a href="#about">About</a>
+<a href="#contact">Contact</a>
+</div>
+<p class="footer-copy">© 2026 Whisper Jars — Northern Virginia Community Project · Bristow Village Shopping Center, 11976 Bristow Village Blvd, Bristow VA 20136</p>
+</div>
+</footer>
+
+<!-- SUBMIT MODAL -->
+<div class="modal-overlay" id="submit-modal" onclick="closeOnOverlay(event,'submit-modal')">
+<div class="modal-box" style="position:relative;">
+<button class="modal-close" onclick="closeModal('submit-modal')">✕</button>
+<h3 style="font-size:1.3rem;font-weight:900;margin-bottom:0.25rem;">✍️ Write your affirmation</h3>
+<p style="font-size:0.85rem;color:#6B4A8A;margin-bottom:1.5rem;">It will appear inside the community jar for everyone to see.</p>
+<div class="form-row"><label>Your affirmation *</label><textarea id="affirm-text-modal" placeholder="I am strong, creative, and worthy of good things…" maxlength="140" oninput="updateCharCount(this,'modal-count')"></textarea><div class="char-count"><span id="modal-count">0</span>/140</div></div>
+<div class="form-row"><label>Mood / Theme</label><select id="affirm-mood-modal"><option value="joy">😊 Joy</option><option value="courage">💪 Courage</option><option value="growth">🌱 Growth</option><option value="kindness">💛 Kindness</option><option value="calm">🌊 Calm</option><option value="hope">🌈 Hope</option></select></div>
+<div class="form-row"><label>Pick your note color</label><div class="color-picks" id="color-picks-modal"></div></div>
+<div class="form-row"><label>Your name (optional)</label><input type="text" id="affirm-name-modal" placeholder="Anonymous" maxlength="30"></div>
+<button class="submit-btn" id="submit-btn-modal" onclick="submitAffirmation('modal')"><span>🫙</span> Drop into the Jar</button>
+</div>
+</div>
+
+<!-- TOOL MODAL -->
+<div class="modal-overlay" id="tool-modal" onclick="closeOnOverlay(event,'tool-modal')">
+<div class="modal-box" id="tool-modal-box" style="position:relative;">
+<button class="modal-close" onclick="closeModal('tool-modal')">✕</button>
+<div id="tool-modal-content"></div>
+</div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+<span class="toast-emoji" id="toast-emoji">🫙</span>
+<span id="toast-msg">Your affirmation has been added!</span>
+</div>
+
+<script>
+// ════════════════════════════════════════
+// API — Base44 Affirmation entity
+// ════════════════════════════════════════
+const APP_ID = '6a273affcf8c0ec45b5e0955';
+const API_BASE = `https://api.base44.com/api/apps/${APP_ID}/entities/Affirmation`;
+const CREATE_FN = 'https://superagent-5b5e0955.base44.app/functions/createAffirmation';
+
+async function apiList() {
+  try {
+    const r = await fetch(`${API_BASE}?sort=-created_date&limit=100`);
+    if (!r.ok) throw new Error('fetch failed');
+    const d = await r.json();
+    return Array.isArray(d) ? d : (d.items || d.data || []);
+  } catch(e) { return []; }
+}
+async function apiCreate(data) {
+  const r = await fetch(CREATE_FN, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  });
+  if (!r.ok) {
+    const err = await r.json().catch(() => ({}));
+    throw new Error(err.error || 'create failed');
+  }
+  return r.json();
+}
+
+// ════════════════════════════════════════
+// CONSTANTS & STATE
+// ════════════════════════════════════════
+const NOTE_COLORS = ['#FF6BDE','#FFE600','#00FFD1','#FF6B6B','#6BFFB8','#FF9A3C','#00D4FF','#BF00FF','#CCFF00','#FF3CAC'];
+const MOOD_EMOJI = { joy:'😊', courage:'💪', growth:'🌱', kindness:'💛', calm:'🌊', hope:'🌈' };
+const MONTHLY_RESPONSES = [
+  "I started making my bed every morning — it sets the tone!",
+  "Five minutes of journaling before school helps so much.",
+  "I go outside during lunch instead of staying in.",
+  "I text one friend something nice every day.",
+  "Deep breaths before a quiz changed everything.",
+  "I put my phone down an hour before bed.",
+  "Drawing in my sketchbook when I'm stressed.",
+];
+
+let affirmations = [];
+let selectedColor = { main: NOTE_COLORS[0], modal: NOTE_COLORS[0] };
+
+// ════════════════════════════════════════
+// LOAD & RENDER
+// ════════════════════════════════════════
+async function loadAffirmations() {
+  affirmations = await apiList();
+  renderNoteList();
+  // Pre-fill jar with dummy notes so it looks full from the start
+  const FILL_COLORS = ['#FF6BDE','#FFE600','#00FFD1','#FF6B6B','#6BFFB8','#FF9A3C','#00D4FF','#BF00FF','#CCFF00','#FF3CAC','#39FF14','#FF4D6D'];
+  for (let fi = 0; fi < 48; fi++) {
+    jarScene.addNote({ color: FILL_COLORS[fi % FILL_COLORS.length], text: '' });
+  }
+  affirmations.forEach(a => jarScene.addNote(a));
+}
+
+function updateCharCount(el, id) { document.getElementById(id).textContent = el.value.length; }
+
+function buildColorPicks(cid, fid) {
+  const c = document.getElementById(cid); if (!c) return; c.innerHTML = '';
+  NOTE_COLORS.forEach((col, i) => {
+    const b = document.createElement('button');
+    b.className = 'color-pick' + (i === 0 ? ' active' : ''); b.style.background = col; b.title = col;
+    b.onclick = () => { c.querySelectorAll('.color-pick').forEach(x => x.classList.remove('active')); b.classList.add('active'); selectedColor[fid] = col; };
+    c.appendChild(b);
+  });
+}
+buildColorPicks('color-picks-main', 'main');
+buildColorPicks('color-picks-modal', 'modal');
+
+function renderNoteList() {
+  const list = document.getElementById('note-list'); if (!list) return; list.innerHTML = '';
+  if (!affirmations.length) { list.innerHTML = '<div style="color:#C4A8D8;font-size:0.9rem;padding:1rem 0;">Be the first to add an affirmation!</div>'; return; }
+  affirmations.slice(0, 12).forEach(n => {
+    const el = document.createElement('div'); el.className = 'note-card';
+    el.innerHTML = `<div class="note-dot" style="background:${n.color || '#FF3CAC'};box-shadow:0 0 8px ${n.color || '#FF3CAC'}88"></div><div><div class="note-text">"${escHtml(n.text)}"</div><div class="note-meta">${escHtml(n.author || 'Anonymous')} · ${MOOD_EMOJI[n.mood] || ''} · ${timeAgo(n.timestamp || n.created_date)}</div></div>`;
+    list.appendChild(el);
+  });
+  document.getElementById('total-count').textContent = affirmations.length;
+}
+
+function escHtml(str) {
+  if (!str) return '';
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function timeAgo(val) {
+  if (!val) return 'just now';
+  const ts = typeof val === 'number' ? val : new Date(val).getTime();
+  const d = Math.floor((Date.now() - ts) / 1000);
+  if (d < 60) return 'just now';
+  if (d < 3600) return Math.floor(d/60) + 'm ago';
+  if (d < 86400) return Math.floor(d/3600) + 'h ago';
+  return Math.floor(d/86400) + 'd ago';
+}
+
+// Monthly responses
+const rGrid = document.getElementById('responses-grid');
+MONTHLY_RESPONSES.forEach((r, i) => {
+  const c = document.createElement('div'); c.className = 'response-card';
+  c.style.borderColor = NOTE_COLORS[i % NOTE_COLORS.length] + '55';
+  c.style.boxShadow = `0 0 14px ${NOTE_COLORS[i % NOTE_COLORS.length]}22`;
+  c.innerHTML = `"${r}"`;
+  rGrid.appendChild(c);
+});
+
+// ════════════════════════════════════════
+// SUBMIT
+// ════════════════════════════════════════
+async function submitAffirmation(form) {
+  const textEl = document.getElementById('affirm-text-' + form);
+  const moodEl = document.getElementById('affirm-mood-' + form);
+  const nameEl = document.getElementById('affirm-name-' + form);
+  const btn = document.getElementById('submit-btn-' + form);
+  const text = textEl.value.trim();
+  if (!text) { showToast('Please write your affirmation first!', 'error'); return; }
+  btn.disabled = true; btn.innerHTML = '<span>✨</span> Dropping into jar…';
+
+  // ── Drop animation: a note flies from the button toward the jar ──
+  const noteEl = document.createElement('div');
+  const col = selectedColor[form];
+  noteEl.style.cssText = `
+    position:fixed; z-index:9999; pointer-events:none;
+    width:90px; height:56px; border-radius:10px;
+    background:${col}; box-shadow:0 4px 24px ${col}88;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Caveat',cursive; font-size:0.72rem; color:rgba(40,10,80,0.9);
+    padding:6px 8px; text-align:center; line-height:1.3;
+    transition: transform 0.9s cubic-bezier(0.4,0,0.2,1), opacity 0.9s ease;
+  `;
+  noteEl.textContent = text.length > 28 ? text.slice(0, 28) + '…' : text;
+
+  // Start position: near the submit button
+  const btnRect = btn.getBoundingClientRect();
+  noteEl.style.left = (btnRect.left + btnRect.width/2 - 45) + 'px';
+  noteEl.style.top  = (btnRect.top  + btnRect.height/2 - 28) + 'px';
+  document.body.appendChild(noteEl);
+
+  // Target: the jar canvas area
+  const jarEl = document.getElementById('jar-viewer-canvas');
+  const jarRect = jarEl ? jarEl.getBoundingClientRect() : { left: window.innerWidth/2 - 80, top: window.innerHeight/2, width: 160, height: 200 };
+  const tx = (jarRect.left + jarRect.width/2 - 45) - (btnRect.left + btnRect.width/2 - 45);
+  const ty = (jarRect.top  + jarRect.height*0.55 - 28) - (btnRect.top + btnRect.height/2 - 28);
+
+  // Kick off animation next frame
+  requestAnimationFrame(() => {
+    noteEl.style.transform = `translate(${tx}px, ${ty}px) scale(0.35) rotate(${(Math.random()-0.5)*30}deg)`;
+    noteEl.style.opacity = '0';
+  });
+  setTimeout(() => noteEl.remove(), 950);
+
+  try {
+    const newA = await apiCreate({
+      text, author: nameEl.value.trim() || 'Anonymous',
+      color: col, mood: moodEl.value,
+      timestamp: Date.now()
+    });
+    affirmations.unshift(newA);
+    renderNoteList();
+    jarScene.addNote(newA);
+    setTimeout(() => spawnParticles(), 800);
+    textEl.value = '';
+    if (nameEl) nameEl.value = '';
+    document.getElementById(form === 'modal' ? 'modal-count' : 'main-count').textContent = '0';
+    if (form === 'modal') closeModal('submit-modal');
+    showToast('🫙 Your affirmation is in the jar!', 'success');
+  } catch(e) {
+    showToast('Oops, something went wrong. Try again!', 'error');
+    console.error(e);
+  }
+  btn.disabled = false; btn.innerHTML = '<span>🫙</span> Drop into the Jar';
+}
+
+function submitVolunteer() {
+  const name   = document.getElementById('vol-name').value.trim();
+  const email  = document.getElementById('vol-email').value.trim();
+  const school = document.getElementById('vol-school').value.trim();
+  const role   = document.getElementById('vol-role-select').value;
+  if (!name)  { showToast('Please enter your name.', 'error'); return; }
+  if (!email) { showToast('Please enter your email address.', 'error'); return; }
+
+  const subject = encodeURIComponent('💜 Volunteer Application — Whisper Jars');
+  const body = encodeURIComponent(
+    'Hi Whisper Jars team,\n\n' +
+    'I would like to apply to volunteer!\n\n' +
+    '─────────────────────────────\n' +
+    'Name:             ' + name + '\n' +
+    'Email:            ' + email + '\n' +
+    (school ? 'School / Library: ' + school + '\n' : '') +
+    'Role Interest:    ' + role + '\n' +
+    '─────────────────────────────\n\n' +
+    'Thank you!'
+  );
+
+  window.location.href = `mailto:whisperjarscommunityva@gmail.com?subject=${subject}&body=${body}`;
+
+  document.getElementById('vol-name').value = '';
+  document.getElementById('vol-email').value = '';
+  document.getElementById('vol-school').value = '';
+  showToast('💜 Opening your email app…', 'success');
+}
+
+function spawnParticles() {
+  for (let i = 0; i < 24; i++) {
+    const p = document.createElement('div'); p.className = 'particle';
+    const s = 5 + Math.random() * 10;
+    const col = NOTE_COLORS[Math.floor(Math.random() * NOTE_COLORS.length)];
+    p.style.cssText = `width:${s}px;height:${s}px;background:${col};box-shadow:0 0 ${s*1.5}px ${col};left:${25+Math.random()*50}vw;bottom:${15+Math.random()*25}vh;animation-delay:${Math.random()*0.4}s;animation-duration:${1.5+Math.random()}s;`;
+    document.body.appendChild(p); setTimeout(() => p.remove(), 2600);
+  }
+}
+
+// ════════════════════════════════════════
+// MODALS & TOAST
+// ════════════════════════════════════════
+function openSubmitModal() { document.getElementById('submit-modal').classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+function closeOnOverlay(e, id) { if (e.target === document.getElementById(id)) closeModal(id); }
+
+let toastTimer;
+function showToast(msg, type) {
+  const emojis = { success:'✅', error:'❌', info:'ℹ️', default:'🫙' };
+  const t = document.getElementById('toast');
+  document.getElementById('toast-emoji').textContent = emojis[type] || '🫙';
+  document.getElementById('toast-msg').textContent = msg;
+  t.classList.add('show'); clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3800);
+}
+
+const TOOL_CONTENT = {
+  breathe:`<div class="tool-content"><h3>🫁 4-7-8 Breathing</h3><p>This technique calms the nervous system in under two minutes. Breathe in for 4, hold for 7, exhale for 8.</p><div class="breathe-box"><div class="breathe-circle">Breathe</div><p class="breathe-text">Follow the circle — expand as you inhale, shrink as you exhale.</p></div><p><strong>How to do it:</strong></p><ul><li>Sit comfortably, close your eyes.</li><li>Breathe in through your nose for <strong>4 seconds</strong>.</li><li>Hold your breath for <strong>7 seconds</strong>.</li><li>Exhale slowly through your mouth for <strong>8 seconds</strong>.</li><li>Repeat 3–4 cycles.</li></ul></div>`,
+  journal:`<div class="tool-content"><h3>📓 Daily Reflection Journal</h3><p>Use these 3 prompts every morning or evening to build a gratitude and intention practice.</p><div class="breathe-box" style="background:rgba(255,230,0,0.07);border-color:rgba(255,230,0,0.22);"><p style="font-size:1.1rem;font-family:'Caveat',cursive;margin-bottom:0.5rem;">① What am I grateful for today?</p><p style="font-size:1.1rem;font-family:'Caveat',cursive;margin-bottom:0.5rem;">② What is one thing I want to focus on?</p><p style="font-size:1.1rem;font-family:'Caveat',cursive;">③ How do I want to show up for others today?</p></div><p>Suggested: 3 sentences minimum per prompt. Just honest reflection.</p></div>`,
+  affirmcard:`<div class="tool-content"><h3>🃏 Affirmation Card Deck</h3><p>52 printable cards — one per week. Perfect for library bulletin boards and classroom desks.</p><div class="breathe-box" style="background:rgba(191,0,255,0.07);border-color:rgba(191,0,255,0.22);"><p style="font-family:'Caveat',cursive;font-size:1.2rem;color:#BF00FF;">"I have the power to create positive change."</p></div><button class="submit-btn" style="margin-top:1rem;" onclick="showToast('📬 Card deck PDF coming soon!','info');closeModal('tool-modal')">📥 Request PDF</button></div>`,
+  gratitude:`<div class="tool-content"><h3>🙏 Physical Whisper Jar Guide</h3><p>Create your own Whisper Jar in your classroom in under 30 minutes.</p><div class="drop-steps" style="margin-top:1rem;"><div class="drop-step"><div class="step-num">1</div><div class="step-text"><h5>Find a jar</h5><p>Any clear glass or plastic jar with a lid. Mason jars work great.</p></div></div><div class="drop-step"><div class="step-num">2</div><div class="step-text"><h5>Decorate it</h5><p>Let students decorate with stickers, washi tape, and their names.</p></div></div><div class="drop-step"><div class="step-num">3</div><div class="step-text"><h5>Add prompts</h5><p>Place prompt cards nearby. Weekly theme: "Share a word that describes how you felt this week."</p></div></div><div class="drop-step"><div class="step-num">4</div><div class="step-text"><h5>Read together</h5><p>Every Friday, pull 3 notes and read them aloud anonymously.</p></div></div></div></div>`,
+  poster:`<div class="tool-content"><h3>🖼️ Classroom Poster Pack</h3><p>6 printable 11×17 posters for your classroom or library walls.</p><ul style="margin-top:0.75rem;"><li>Growth Mindset word wall</li><li>"I Am" affirmation wall</li><li>Feelings vocabulary chart</li><li>Breathing reminder card</li><li>Whisper Jar instruction poster</li><li>Monthly question display poster</li></ul><button class="submit-btn" style="margin-top:1.5rem;" onclick="showToast('📬 Poster pack coming soon!','info');closeModal('tool-modal')">📥 Request Poster Pack</button></div>`,
+  check:`<div class="tool-content"><h3>📊 Mood Check-In Wheel</h3><p>A visual feelings wheel that helps students identify and name their emotions without pressure.</p><div class="breathe-box" style="font-size:2.5rem;line-height:2;">😊 😔 😤 😰 😌 😕<br>🤩 😶 😢 😤 🥰 😴</div><p><strong>How to use:</strong> Each morning, students point to the emoji that matches how they feel. Teachers check in with students who need support.</p></div>`
+};
+function openTool(id) { document.getElementById('tool-modal-content').innerHTML = TOOL_CONTENT[id] || '<p>Coming soon!</p>'; document.getElementById('tool-modal').classList.add('open'); }
+
+// ════════════════════════════════════════
+// CARTOON JAR — Canvas 2D
+// ════════════════════════════════════════
+const jarScene = (() => {
+  const canvas = document.getElementById('jar-viewer-canvas');
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return { addNote: () => {} };
+
+  let W, H, rotAngle = 0, dragging = false, lastX = 0, lastY = 0, tiltY = 0;
+  const notes3D = [];
+
+  const sparkles = Array.from({length: 22}, (_, i) => ({
+    angle: (i / 22) * Math.PI * 2,
+    dist: 0.52 + Math.random() * 0.22,
+    size: 2.5 + Math.random() * 4.5,
+    speed: 0.0008 + Math.random() * 0.0012,
+    phase: Math.random() * Math.PI * 2,
+    color: ['#FFE600','#FF6BDE','#00FFD1','#00D4FF','#FF9A3C','#BF00FF','#CCFF00','#FF3CAC'][i % 8],
+    twinkleSpeed: 0.002 + Math.random() * 0.003,
+    type: Math.random() > 0.5 ? 'star' : 'dot'
+  }));
+
+  function resize() {
+    const rect = canvas.getBoundingClientRect();
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = rect.width * dpr; H = rect.height * dpr;
+    canvas.width = W; canvas.height = H;
+  }
+  resize(); window.addEventListener('resize', resize);
+
+  function hexToRgb(hex) {
+    const h = hex.replace('#','');
+    return { r: parseInt(h.slice(0,2),16), g: parseInt(h.slice(2,4),16), b: parseInt(h.slice(4,6),16) };
+  }
+
+  function makeNote(affirm) {
+    const angle = Math.random() * Math.PI * 2;
+    const rad = 0.04 + Math.random() * 0.26;
+    return {
+      color: affirm.color || NOTE_COLORS[Math.floor(Math.random() * NOTE_COLORS.length)],
+      nx: Math.cos(angle) * rad, ny: 0.06 + Math.random() * 0.52, nz: Math.sin(angle) * rad,
+      w: 0.09 + Math.random() * 0.045, h: 0.055 + Math.random() * 0.03,
+      tilt: (Math.random() - 0.5) * 0.65, idleOffset: Math.random() * Math.PI * 2,
+      text: affirm.text ? affirm.text.substring(0, 26) : ''
+    };
+  }
+
+  function addNote(affirm) { notes3D.unshift(makeNote(affirm)); if (notes3D.length > 60) notes3D.pop(); }
+
+  canvas.addEventListener('mousedown', e => { dragging=true; lastX=e.clientX; lastY=e.clientY; });
+  window.addEventListener('mouseup', () => dragging=false);
+  window.addEventListener('mousemove', e => {
+    if (!dragging) return;
+    rotAngle += (e.clientX-lastX)*0.013; tiltY += (e.clientY-lastY)*0.008;
+    tiltY = Math.max(-0.35, Math.min(0.35, tiltY)); lastX=e.clientX; lastY=e.clientY;
+  });
+  canvas.addEventListener('touchstart', e => { dragging=true; lastX=e.touches[0].clientX; lastY=e.touches[0].clientY; }, {passive:true});
+  window.addEventListener('touchend', () => dragging=false);
+  window.addEventListener('touchmove', e => {
+    if (!dragging) return;
+    rotAngle += (e.touches[0].clientX-lastX)*0.013; tiltY += (e.touches[0].clientY-lastY)*0.008;
+    tiltY = Math.max(-0.35, Math.min(0.35, tiltY)); lastX=e.touches[0].clientX; lastY=e.touches[0].clientY;
+  }, {passive:true});
+
+  function drawStar(ctx, cx, cy, r, points, alpha, color) {
+    ctx.save(); ctx.globalAlpha = alpha; ctx.fillStyle = color;
+    ctx.shadowColor = color; ctx.shadowBlur = r * 3;
+    ctx.beginPath();
+    for (let i = 0; i < points * 2; i++) {
+      const ang = (i * Math.PI) / points;
+      const rad2 = i % 2 === 0 ? r : r * 0.42;
+      ctx.lineTo(cx + Math.cos(ang - Math.PI/2) * rad2, cy + Math.sin(ang - Math.PI/2) * rad2);
+    }
+    ctx.closePath(); ctx.fill(); ctx.restore();
+  }
+
+  function drawFrame(t) {
+    resize(); ctx.clearRect(0, 0, W, H);
+    const cx = W*0.5, cy = H*0.52;
+    const jarH = H*0.70, jarW = W*0.54;
+    const jarBottom = cy+jarH*0.47, jarTop = jarBottom-jarH;
+    const bHW=jarW*0.48, sHW=jarW*0.44, nHW=jarW*0.28, lHW=jarW*0.315;
+    const shoulderY=jarTop+jarH*0.20, neckY=jarTop+jarH*0.07;
+
+    const og=ctx.createRadialGradient(cx,cy,jarW*0.15,cx,cy,jarW*0.95);
+    og.addColorStop(0,'rgba(255,200,240,0.18)'); og.addColorStop(0.45,'rgba(180,230,255,0.10)'); og.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle=og; ctx.beginPath(); ctx.ellipse(cx,cy,jarW*0.95,jarH*0.65,0,0,Math.PI*2); ctx.fill();
+
+    const shadowG=ctx.createRadialGradient(cx,jarBottom+14,4,cx,jarBottom+14,jarW*0.55);
+    shadowG.addColorStop(0,'rgba(180,120,220,0.22)'); shadowG.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle=shadowG; ctx.beginPath(); ctx.ellipse(cx,jarBottom+14,jarW*0.55,18,0,0,Math.PI*2); ctx.fill();
+
+    function buildJarPath() {
+      ctx.beginPath();
+      ctx.moveTo(cx-bHW+10, jarBottom-8);
+      ctx.bezierCurveTo(cx-bHW-5,jarBottom+4, cx+bHW+5,jarBottom+4, cx+bHW-10,jarBottom-8);
+      ctx.bezierCurveTo(cx+sHW+8,jarBottom-jarH*0.38, cx+sHW+8,shoulderY+20, cx+sHW,shoulderY);
+      ctx.bezierCurveTo(cx+sHW-4,neckY+(shoulderY-neckY)*0.45, cx+nHW+4,neckY+4, cx+nHW,neckY);
+      ctx.lineTo(cx+lHW, jarTop); ctx.lineTo(cx-lHW, jarTop); ctx.lineTo(cx-nHW, neckY);
+      ctx.bezierCurveTo(cx-nHW-4,neckY+4, cx-sHW+4,neckY+(shoulderY-neckY)*0.45, cx-sHW,shoulderY);
+      ctx.bezierCurveTo(cx-sHW-8,shoulderY+20, cx-sHW-8,jarBottom-jarH*0.38, cx-bHW+10,jarBottom-8);
+      ctx.closePath();
+    }
+
+    ctx.save(); buildJarPath();
+    const fillG=ctx.createLinearGradient(cx-jarW*0.5,jarTop,cx+jarW*0.5,jarBottom);
+    fillG.addColorStop(0,'rgba(220,240,255,0.18)'); fillG.addColorStop(0.3,'rgba(255,255,255,0.10)');
+    fillG.addColorStop(0.7,'rgba(200,230,255,0.14)'); fillG.addColorStop(1,'rgba(180,210,255,0.12)');
+    ctx.fillStyle=fillG; ctx.fill(); ctx.restore();
+
+    // notes
+    ctx.save(); buildJarPath(); ctx.clip();
+    const cosA=Math.cos(rotAngle), sinA=Math.sin(rotAngle);
+    const projected=notes3D.map(note=>{
+      const iy=Math.sin(t*0.00085+note.idleOffset)*0.013;
+      const rx=note.nx*cosA-note.nz*sinA, rz=note.nx*sinA+note.nz*cosA;
+      const ry=note.ny+iy+tiltY*rz*0.5;
+      const px=cx+rx*jarW*1.35, py=jarBottom-ry*jarH*0.87-10;
+      return {note,px,py,depth:rz,sc:0.70+rz*0.30};
+    });
+    projected.sort((a,b)=>a.depth-b.depth);
+    projected.forEach(({note,px,py,sc})=>{
+      const nw=note.w*jarW*2.5*sc, nh=note.h*jarH*1.65*sc;
+      const tilt=note.tilt+Math.sin(t*0.00065+note.idleOffset)*0.06;
+      const rgb=hexToRgb(note.color); const alpha=0.88+sc*0.10;
+      ctx.save(); ctx.translate(px,py); ctx.rotate(tilt);
+      ctx.shadowColor=note.color; ctx.shadowBlur=8*sc;
+      const ng=ctx.createLinearGradient(-nw/2,-nh/2,nw/2,nh/2);
+      ng.addColorStop(0,`rgba(${rgb.r},${rgb.g},${rgb.b},${alpha})`);
+      ng.addColorStop(1,`rgba(${Math.min(rgb.r+40,255)},${Math.min(rgb.g+40,255)},${Math.min(rgb.b+40,255)},${alpha})`);
+      ctx.fillStyle=ng;
+      const cr=5*sc; ctx.beginPath(); ctx.roundRect(-nw/2,-nh/2,nw,nh,cr); ctx.fill();
+      ctx.shadowColor='transparent';
+      const hg=ctx.createLinearGradient(-nw/2,-nh/2,-nw/2,-nh/2+nh*0.45);
+      hg.addColorStop(0,'rgba(255,255,255,0.65)'); hg.addColorStop(1,'rgba(255,255,255,0)');
+      ctx.fillStyle=hg; ctx.beginPath(); ctx.roundRect(-nw/2+1,-nh/2+1,nw-2,nh*0.4,[cr,cr,0,0]); ctx.fill();
+      ctx.strokeStyle=`rgba(255,255,255,0.55)`; ctx.lineWidth=1.5*sc;
+      ctx.beginPath(); ctx.roundRect(-nw/2,-nh/2,nw,nh,cr); ctx.stroke();
+      if(sc>0.80&&note.text){
+        ctx.fillStyle=`rgba(40,10,80,0.92)`;
+        ctx.font=`bold ${Math.round(6.8*sc)}px 'Nunito',sans-serif`;
+        ctx.textAlign='center'; ctx.textBaseline='middle';
+        const maxC=Math.floor(nw/(4.4*sc));
+        ctx.fillText(note.text.length>maxC?note.text.substring(0,maxC)+'…':note.text,0,0);
+      }
+      ctx.restore();
+    });
+    ctx.restore();
+
+    ctx.save(); buildJarPath(); ctx.strokeStyle='rgba(160,210,255,0.75)'; ctx.lineWidth=4.5; ctx.stroke(); ctx.restore();
+    ctx.save(); ctx.globalAlpha=0.35; buildJarPath(); ctx.strokeStyle='rgba(255,255,255,0.9)'; ctx.lineWidth=1.8; ctx.stroke(); ctx.restore();
+
+    ctx.save(); buildJarPath(); ctx.clip();
+    const ls=ctx.createLinearGradient(cx-jarW*0.48,0,cx-jarW*0.08,0);
+    ls.addColorStop(0,'rgba(255,255,255,0.42)'); ls.addColorStop(0.55,'rgba(255,255,255,0.12)'); ls.addColorStop(1,'rgba(255,255,255,0)');
+    ctx.fillStyle=ls; ctx.fillRect(cx-jarW*0.48,jarTop+20,jarW*0.42,jarH*0.82);
+    const rs=ctx.createLinearGradient(cx+jarW*0.25,0,cx+jarW*0.48,0);
+    rs.addColorStop(0,'rgba(180,230,255,0)'); rs.addColorStop(1,'rgba(180,230,255,0.18)');
+    ctx.fillStyle=rs; ctx.fillRect(cx+jarW*0.22,jarTop,jarW*0.28,jarH);
+    const bot=ctx.createLinearGradient(0,jarBottom-jarH*0.18,0,jarBottom);
+    bot.addColorStop(0,'rgba(220,240,255,0)'); bot.addColorStop(1,'rgba(200,230,255,0.15)');
+    ctx.fillStyle=bot; ctx.fillRect(cx-jarW*0.5,jarBottom-jarH*0.18,jarW,jarH*0.20);
+    ctx.restore();
+
+    const lipG=ctx.createLinearGradient(cx-lHW,0,cx+lHW,0);
+    lipG.addColorStop(0,'rgba(160,210,255,0.7)'); lipG.addColorStop(0.5,'rgba(220,245,255,0.95)'); lipG.addColorStop(1,'rgba(160,210,255,0.7)');
+    ctx.save(); ctx.shadowColor='rgba(180,230,255,0.7)'; ctx.shadowBlur=10;
+    ctx.fillStyle=lipG; ctx.beginPath(); ctx.roundRect(cx-lHW-1,jarTop-4,(lHW+1)*2,12,5); ctx.fill();
+    ctx.strokeStyle='rgba(255,255,255,0.7)'; ctx.lineWidth=1.5; ctx.beginPath(); ctx.roundRect(cx-lHW-1,jarTop-4,(lHW+1)*2,12,5); ctx.stroke(); ctx.restore();
+
+    const corkW=jarW*0.63, corkH=jarH*0.092, corkY=jarTop-corkH+5;
+    const cg=ctx.createLinearGradient(cx-corkW/2,corkY,cx+corkW/2,corkY+corkH);
+    cg.addColorStop(0,'#FFD08A'); cg.addColorStop(0.35,'#E8A050'); cg.addColorStop(0.72,'#C87828'); cg.addColorStop(1,'#A05010');
+    ctx.save(); ctx.shadowColor='rgba(200,140,60,0.45)'; ctx.shadowBlur=10;
+    ctx.fillStyle=cg; ctx.beginPath(); ctx.roundRect(cx-corkW/2,corkY,corkW,corkH,[9,9,4,4]); ctx.fill(); ctx.restore();
+    ctx.strokeStyle='rgba(255,215,100,0.6)'; ctx.lineWidth=2; ctx.beginPath(); ctx.roundRect(cx-corkW/2,corkY,corkW,corkH,[9,9,4,4]); ctx.stroke();
+    ctx.strokeStyle='rgba(255,220,130,0.3)'; ctx.lineWidth=1;
+    for(let ci=1;ci<4;ci++){ctx.beginPath();ctx.moveTo(cx-corkW/2+9,corkY+(corkH/4)*ci);ctx.lineTo(cx+corkW/2-9,corkY+(corkH/4)*ci);ctx.stroke();}
+    const csh=ctx.createLinearGradient(cx-corkW/2,corkY,cx-corkW/2,corkY+corkH*0.42);
+    csh.addColorStop(0,'rgba(255,255,255,0.35)'); csh.addColorStop(1,'rgba(255,255,255,0)');
+    ctx.fillStyle=csh; ctx.beginPath(); ctx.roundRect(cx-corkW/2+3,corkY+2,corkW-6,corkH*0.38,[7,7,0,0]); ctx.fill();
+
+    sparkles.forEach((sp, i) => {
+      sp.angle += sp.speed;
+      const twinkle = 0.5 + 0.5 * Math.sin(t * sp.twinkleSpeed + sp.phase);
+      const orbitX = cx + Math.cos(sp.angle) * (jarW * sp.dist);
+      const orbitY = cy + Math.sin(sp.angle) * (jarH * sp.dist * 0.55);
+      const sz = sp.size * (0.7 + 0.3 * twinkle);
+      const alpha = 0.4 + 0.6 * twinkle;
+      if (sp.type === 'star') {
+        drawStar(ctx, orbitX, orbitY, sz, 4, alpha, sp.color);
+      } else {
+        ctx.save(); ctx.globalAlpha = alpha; ctx.shadowColor = sp.color; ctx.shadowBlur = sz * 3.5;
+        const dg=ctx.createRadialGradient(orbitX,orbitY,0,orbitX,orbitY,sz*2);
+        dg.addColorStop(0,sp.color); dg.addColorStop(0.5,sp.color+'AA'); dg.addColorStop(1,sp.color+'00');
+        ctx.fillStyle=dg; ctx.beginPath(); ctx.arc(orbitX,orbitY,sz*2,0,Math.PI*2); ctx.fill(); ctx.restore();
+      }
+    });
+
+    const staticSparkles=[
+      {x:cx-jarW*0.62,y:cy-jarH*0.18,color:'#FFE600',s:5},{x:cx+jarW*0.65,y:cy-jarH*0.05,color:'#FF6BDE',s:4},
+      {x:cx-jarW*0.55,y:cy+jarH*0.22,color:'#00FFD1',s:3.5},{x:cx+jarW*0.58,y:cy+jarH*0.28,color:'#00D4FF',s:4.5},
+      {x:cx,y:cy-jarH*0.52,color:'#CCFF00',s:3},{x:cx-jarW*0.70,y:cy-jarH*0.40,color:'#BF00FF',s:3.5},
+      {x:cx+jarW*0.72,y:cy-jarH*0.35,color:'#FF9A3C',s:4},
+    ];
+    staticSparkles.forEach((ss,i) => {
+      const twinkle=0.35+0.65*Math.abs(Math.sin(t*0.0018+i*1.1));
+      drawStar(ctx,ss.x,ss.y,ss.s*twinkle,4,twinkle*0.9,ss.color);
+    });
+
+    ctx.font=`${Math.round(W*0.037)}px serif`; ctx.textAlign='center'; ctx.textBaseline='middle';
+    const floaters=[{e:'✨',bx:cx-jarW*0.14,by:jarTop-38,i:0},{e:'💛',bx:cx+jarW*0.10,by:jarTop-52,i:1},{e:'🌟',bx:cx+jarW*0.38,by:jarTop-10,i:2}];
+    floaters.forEach(fl => { const fy=fl.by+Math.sin(t*0.0016+fl.i*1.3)*7; ctx.globalAlpha=0.92; ctx.fillText(fl.e,fl.bx,fy); });
+    ctx.globalAlpha=1;
+
+    if (!dragging) rotAngle += 0.004;
+    requestAnimationFrame(drawFrame);
+  }
+  requestAnimationFrame(drawFrame);
+  return { addNote };
+})();
+
+// ════════════════════════════════════════
+// HERO CANVAS
+// ════════════════════════════════════════
+(() => {
+  const canvas=document.getElementById('hero-canvas');
+  const ctx=canvas.getContext('2d');
+  function resize(){canvas.width=canvas.clientWidth*Math.min(devicePixelRatio,2);canvas.height=canvas.clientHeight*Math.min(devicePixelRatio,2);}
+  resize(); window.addEventListener('resize',resize);
+  const NEON_ORBS=Array.from({length:50},()=>({
+    x:Math.random(),y:Math.random(),vx:(Math.random()-0.5)*0.0004,vy:(Math.random()-0.5)*0.0004,
+    r:0.5+Math.random()*2.5,
+    color:['#FF3CAC','#FFE600','#00FFD1','#00D4FF','#BF00FF','#39FF14','#FF6B00','#CCFF00'][Math.floor(Math.random()*8)],
+    phase:Math.random()*Math.PI*2
+  }));
+  let mx=0.5,my=0.5;
+  canvas.addEventListener('mousemove',e=>{mx=e.clientX/canvas.clientWidth;my=e.clientY/canvas.clientHeight;});
+  function draw(t){
+    const W=canvas.width,H=canvas.height; ctx.clearRect(0,0,W,H);
+    ctx.fillStyle='#FFF0FA'; ctx.fillRect(0,0,W,H);
+    const mg=ctx.createRadialGradient(mx*W,my*H,0,mx*W,my*H,W*0.35);
+    mg.addColorStop(0,'rgba(255,60,172,0.18)'); mg.addColorStop(1,'transparent');
+    ctx.fillStyle=mg; ctx.fillRect(0,0,W,H);
+    NEON_ORBS.forEach(o=>{
+      o.x+=o.vx+Math.sin(t*0.0003+o.phase)*0.00015; o.y+=o.vy+Math.cos(t*0.0004+o.phase)*0.00015;
+      o.x=((o.x%1)+1)%1; o.y=((o.y%1)+1)%1;
+      const px=o.x*W,py=o.y*H,pr=o.r*Math.min(W,H)*0.01;
+      const grd=ctx.createRadialGradient(px,py,0,px,py,pr*7);
+      const c=o.color.replace('#','');
+      const r=parseInt(c.slice(0,2),16),g=parseInt(c.slice(2,4),16),b=parseInt(c.slice(4,6),16);
+      grd.addColorStop(0,`rgba(${r},${g},${b},0.35)`); grd.addColorStop(0.4,`rgba(${r},${g},${b},0.10)`); grd.addColorStop(1,`rgba(${r},${g},${b},0)`);
+      ctx.fillStyle=grd; ctx.beginPath(); ctx.arc(px,py,pr*7,0,Math.PI*2); ctx.fill();
+    });
+    ctx.lineWidth=1;
+    for(let i=0;i<NEON_ORBS.length;i++) for(let j=i+1;j<NEON_ORBS.length;j++){
+      const a=NEON_ORBS[i],bv=NEON_ORBS[j],dx=(a.x-bv.x)*W,dy=(a.y-bv.y)*H,d=Math.sqrt(dx*dx+dy*dy);
+      if(d<W*0.12){
+        const alpha=(1-d/(W*0.12))*0.25;
+        const c=a.color.replace('#','');
+        const r=parseInt(c.slice(0,2),16),g=parseInt(c.slice(2,4),16),bl=parseInt(c.slice(4,6),16);
+        ctx.strokeStyle=`rgba(${r},${g},${bl},${alpha})`; ctx.globalAlpha=1;
+        ctx.beginPath(); ctx.moveTo(a.x*W,a.y*H); ctx.lineTo(bv.x*W,bv.y*H); ctx.stroke();
+      }
+    }
+    ctx.globalAlpha=1;
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+
+// ════════════════════════════════════════
+// SCROLL & NAV
+// ════════════════════════════════════════
+const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='none';}});},{threshold:0.1});
+document.querySelectorAll('section,.workshop-card,.tool-card,.vol-role').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(24px)';el.style.transition='opacity 0.6s ease,transform 0.6s ease';observer.observe(el);});
+
+const sections=['hero','affirm-section','workshops-section','toolkit-section','volunteer','donations','about','contact'];
+const tabLinks=document.querySelectorAll('.nav-tab');
+const tabObserver=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      const id=entry.target.id;
+      tabLinks.forEach(a=>a.classList.toggle('active',a.dataset.section===id));
+    }
+  });
+},{threshold:0.35,rootMargin:'-64px 0px -40% 0px'});
+sections.forEach(id=>{const el=document.getElementById(id);if(el)tabObserver.observe(el);});
+
+function toggleMobileMenu(){document.getElementById('mobile-menu').classList.toggle('open');}
+function closeMobileMenu(){document.getElementById('mobile-menu').classList.remove('open');}
+document.addEventListener('click',e=>{
+  const menu=document.getElementById('mobile-menu'),btn=document.getElementById('hamburger-btn');
+  if(menu.classList.contains('open')&&!menu.contains(e.target)&&!btn.contains(e.target))menu.classList.remove('open');
+});
+
+// ════════════════════════════════════════
+// DONATION FORM
+// ════════════════════════════════════════
+function submitDonation() {
+  const name  = document.getElementById('don-name').value.trim();
+  const email = document.getElementById('don-email').value.trim();
+  const phone = document.getElementById('don-phone').value.trim();
+  const items = document.getElementById('don-items').value.trim();
+  const date  = document.getElementById('don-date').value;
+  const notes = document.getElementById('don-notes').value.trim();
+
+  if (!name)  { showToast('Please enter your name.', 'error'); return; }
+  if (!email) { showToast('Please enter your email address.', 'error'); return; }
+
+  const subject = encodeURIComponent('📦 Donation Registration — Whisper Jars');
+  const body = encodeURIComponent(
+    'Hi Whisper Jars team,\n\n' +
+    'I would like to register a donation drop-off.\n\n' +
+    '─────────────────────────────\n' +
+    'Name:               ' + name + '\n' +
+    'Email:              ' + email + '\n' +
+    (phone ? 'Phone:              ' + phone + '\n' : '') +
+    (items ? 'Items to donate:    ' + items + '\n' : '') +
+    (date  ? 'Preferred drop-off: ' + date  + '\n' : '') +
+    (notes ? 'Notes:              ' + notes + '\n' : '') +
+    '─────────────────────────────\n\n' +
+    'Thank you!'
+  );
+
+  window.location.href = `mailto:whisperjarscommunityva@gmail.com?subject=${subject}&body=${body}`;
+
+  // Clear form
+  ['don-name','don-email','don-phone','don-items','don-date','don-notes'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  showToast('📬 Opening your email app…', 'success');
+}
+
+// ════════════════════════════════════════
+// MONTHLY QUESTION
+// ════════════════════════════════════════
+const MONTHLY_QUESTIONS = [
+  { emoji: '❄️',  q: 'What is one intention you want to carry through the new year?',                        month: 'January'   },
+  { emoji: '💛',  q: 'How do you show kindness to yourself when things feel hard?',                          month: 'February'  },
+  { emoji: '🌱',  q: 'What is something new you want to grow or try this season?',                           month: 'March'     },
+  { emoji: '🌸',  q: 'What moment recently made you stop and feel grateful?',                                month: 'April'     },
+  { emoji: '☀️',  q: 'Who in your life lifts you up, and how can you let them know?',                        month: 'May'       },
+  { emoji: '🌿',  q: 'What is one small habit you have started that has made your days feel brighter?',      month: 'June'      },
+  { emoji: '🌊',  q: 'What is something you are ready to let go of this summer?',                            month: 'July'      },
+  { emoji: '🍃',  q: 'What does rest look like for you — and are you getting enough of it?',                 month: 'August'    },
+  { emoji: '🍂',  q: 'What is one thing you have learned about yourself this year so far?',                  month: 'September' },
+  { emoji: '🎃',  q: 'What is a fear you have faced recently, and what did it teach you?',                   month: 'October'   },
+  { emoji: '🍁',  q: 'What are three things — big or small — that you are thankful for right now?',          month: 'November'  },
+  { emoji: '✨',  q: 'What is one word you want to define how you show up in the coming year?',               month: 'December'  },
+];
+
+(function renderMonthlyQuestion() {
+  const now = new Date();
+  const idx = now.getMonth(); // 0–11
+  const year = now.getFullYear();
+  const mq = MONTHLY_QUESTIONS[idx];
+  document.getElementById('monthly-emoji').textContent = mq.emoji;
+  document.getElementById('monthly-q-text').textContent = '"' + mq.q + '"';
+  document.getElementById('monthly-tag').textContent = mq.month + ' ' + year;
+})();
+
+// ════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════
+loadAffirmations();
+</script>
+</body>
+</html>
